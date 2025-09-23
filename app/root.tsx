@@ -9,6 +9,7 @@ import {
 
 import type { Route } from "./+types/root";
 import "./app.css";
+import { GlassNav } from "./components/GlassNav";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -21,6 +22,10 @@ export const links: Route.LinksFunction = () => [
     rel: "stylesheet",
     href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
   },
+  {
+    rel: "stylesheet",
+    href: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css",
+  },
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
@@ -32,8 +37,20 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body>
-        {children}
+      <body className="px-2 sm:px-0">
+        {/* SVG Filter for Glass Distortion */}
+        <svg style={{ display: "none" }}>
+          <filter id="glass-distortion">
+            <feTurbulence type="turbulence" baseFrequency="0.008" numOctaves="2" result="noise" />
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale={77} />
+          </filter>
+        </svg>
+        <div className="container mx-auto px-4">
+          <GlassNav />
+          <div className="pt-4">
+            {children}
+          </div>
+        </div>
         <ScrollRestoration />
         <Scripts />
       </body>
