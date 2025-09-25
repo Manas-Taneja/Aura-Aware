@@ -1,3 +1,4 @@
+import { GlassButton } from "../components/buttons";
 import React, { useMemo, useState } from "react";
 import type { Route } from "./+types/knowledge";
 import {
@@ -28,7 +29,7 @@ export default function Knowledge() {
 	}, [query, category]);
 
 	return (
-		<main className="min-h-dvh p-4 sm:p-6 mx-auto max-w-xl sm:max-w-4xl overflow-hidden">
+		<main className="p-4 sm:p-6 mx-auto max-w-xl sm:max-w-4xl overflow-hidden">
 			<header className="mb-6">
 				<h1 className="text-2xl font-semibold">Knowledge Center</h1>
 				<p className="text-sm text-gray-500">Learn with gentle, clear guides</p>
@@ -82,16 +83,16 @@ export default function Knowledge() {
 								<div className="glass-specular" />
 								<div className="glass-content">
 									<ul>
-										<li>
-											<button type="button" onClick={() => setCategory("all" as any)} className="text-left w-full">
-												All categories
-											</button>
-										</li>
+                                        <li>
+                                            <GlassButton type="button" onClick={() => setCategory("all" as any)} className="w-full text-left">
+                                                <span>All categories</span>
+                                            </GlassButton>
+                                        </li>
 										{knowledgeCategories.map((c) => (
 											<li key={c}>
-												<button type="button" onClick={() => setCategory(c as any)} className="text-left w-full">
-													{c}
-												</button>
+                                                <GlassButton type="button" onClick={() => setCategory(c as any)} className="w-full text-left">
+                                                    <span>{c}</span>
+                                                </GlassButton>
 											</li>
 										))}
 									</ul>

@@ -1,3 +1,5 @@
+import { GlassButton } from "../components/buttons";
+import { GlassCard } from "../components/cards";
 import React, { useEffect, useMemo, useState } from "react";
 import type { Route } from "./+types/home";
 
@@ -105,7 +107,7 @@ export default function Home() {
 	}
 
 	return (
-		<main className="min-h-dvh p-4 sm:p-6 mx-auto max-w-xl sm:max-w-3xl">
+		<main className="p-4 sm:p-6 mx-auto max-w-xl sm:max-w-3xl">
 			<section className="flex items-center justify-between mb-4 sm:mb-6">
 				<div>
 					<h1 className="text-2xl font-semibold">Today Hub</h1>
@@ -119,30 +121,22 @@ export default function Home() {
 
 			{/* CTA Card */}
 			<section className="mb-4 sm:mb-6">
-				<div className="glass-card">
-					<div className="glass-filter" />
-					<div className="glass-overlay" />
-					<div className="glass-specular" />
-					<div className="glass-content">
+				<GlassCard>
 						<div className="w-full flex items-start justify-between gap-4">
 							<div>
-								<h2 className="text-lg font-medium mb-1">Start Your Monthly Check-in</h2>
-								<p className="text-sm text-gray-600 dark:text-gray-400">
-									Complete a quick monthly review to stay on top of changes.
-								</p>
+								<h2 className="text-lg font-medium mb-1">Complete a quick monthly review to stay on top of changes.</h2>
 							</div>
-							{isCompletedThisMonth ? (
-								<button disabled className="glass-button inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium disabled:opacity-60 disabled:cursor-not-allowed">
-									<div className="glass-content">Check-in Completed</div>
-								</button>
-							) : (
-								<button onClick={handleStartMonthlyCheckin} className="glass-button inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium">
-									<div className="glass-content">Start Your Monthly Check-in</div>
-								</button>
-							)}
+                            {isCompletedThisMonth ? (
+                                <GlassButton disabled>
+                                    Check-in Completed
+                                </GlassButton>
+                            ) : (
+                                <GlassButton onClick={handleStartMonthlyCheckin}>
+                                    Start Your Monthly Check-in
+                                </GlassButton>
+                            )}
 						</div>
-					</div>
-				</div>
+					</GlassCard>
 			</section>
 
 			{/* Tip of the Day */}
@@ -160,46 +154,69 @@ export default function Home() {
 
 			{/* Quick Log */}
 			<section>
-				<div className="glass-card">
-					<div className="glass-filter" />
-					<div className="glass-overlay" />
-					<div className="glass-specular" />
-					<div className="glass-content">
+				<GlassCard>
 						<div className="w-full flex items-center justify-between mb-3">
 							<h2 className="text-lg font-medium">Quick Log</h2>
 							<p className="text-xs text-white/70">Fast-track to your Body Journal</p>
 						</div>
-						<div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-							<button onClick={() => handleQuickLog("feeling_good")} className="glass-button group rounded-lg p-0 transition text-center">
-								<div className="glass-content p-4">
-									<div className="text-2xl mb-2">😊</div>
-									<div className="text-sm font-medium">Feeling good</div>
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                            <GlassButton onClick={() => handleQuickLog("feeling_good")}
+								onMouseEnter={(e) => { e.currentTarget.style.transform = 'none'; }}
+								onMouseLeave={(e) => { e.currentTarget.style.transform = 'none'; }}
+								onMouseDown={(e) => { e.currentTarget.style.transform = 'scale(0.95)'; }}
+								onMouseUp={(e) => { e.currentTarget.style.transform = 'none'; }}
+								onTouchStart={(e) => { (e.currentTarget as HTMLButtonElement).style.transform = 'scale(0.95)'; }}
+								onTouchEnd={(e) => { (e.currentTarget as HTMLButtonElement).style.transform = 'none'; }}
+                            >
+                                <div className="p-2">
+                                    <div className="text-xl mb-1">😊</div>
+                                    <div className="text-xs font-medium">Feeling good</div>
 								</div>
-							</button>
-							<button onClick={() => handleQuickLog("tenderness")} className="glass-button group rounded-lg p-0 transition text-center">
-								<div className="glass-content p-4">
-									<div className="text-2xl mb-2">💧</div>
-									<div className="text-sm font-medium">Tenderness</div>
+                            </GlassButton>
+                            <GlassButton onClick={() => handleQuickLog("tenderness")}
+								onMouseEnter={(e) => { e.currentTarget.style.transform = 'none'; }}
+								onMouseLeave={(e) => { e.currentTarget.style.transform = 'none'; }}
+								onMouseDown={(e) => { e.currentTarget.style.transform = 'scale(0.95)'; }}
+								onMouseUp={(e) => { e.currentTarget.style.transform = 'none'; }}
+								onTouchStart={(e) => { (e.currentTarget as HTMLButtonElement).style.transform = 'scale(0.95)'; }}
+								onTouchEnd={(e) => { (e.currentTarget as HTMLButtonElement).style.transform = 'none'; }}
+                            >
+                                <div className="p-2">
+                                    <div className="text-xl mb-1">💧</div>
+                                    <div className="text-xs font-medium">Tenderness</div>
 								</div>
-							</button>
-							<button onClick={() => handleQuickLog("fatigue")} className="glass-button group rounded-lg p-0 transition text-center">
-								<div className="glass-content p-4">
-									<div className="text-2xl mb-2">🌙</div>
-									<div className="text-sm font-medium">Fatigue</div>
+                            </GlassButton>
+                            <GlassButton onClick={() => handleQuickLog("fatigue")}
+								onMouseEnter={(e) => { e.currentTarget.style.transform = 'none'; }}
+								onMouseLeave={(e) => { e.currentTarget.style.transform = 'none'; }}
+								onMouseDown={(e) => { e.currentTarget.style.transform = 'scale(0.95)'; }}
+								onMouseUp={(e) => { e.currentTarget.style.transform = 'none'; }}
+								onTouchStart={(e) => { (e.currentTarget as HTMLButtonElement).style.transform = 'scale(0.95)'; }}
+								onTouchEnd={(e) => { (e.currentTarget as HTMLButtonElement).style.transform = 'none'; }}
+                            >
+                                <div className="p-2">
+                                    <div className="text-xl mb-1">🌙</div>
+                                    <div className="text-xs font-medium">Fatigue</div>
 								</div>
-							</button>
-							<button onClick={() => handleQuickLog("note")} className="glass-button group rounded-lg p-0 transition text-center">
-								<div className="glass-content p-4">
-									<div className="text-2xl mb-2">📝</div>
-									<div className="text-sm font-medium">Add a note</div>
+                            </GlassButton>
+                            <GlassButton onClick={() => handleQuickLog("note")}
+								onMouseEnter={(e) => { e.currentTarget.style.transform = 'none'; }}
+								onMouseLeave={(e) => { e.currentTarget.style.transform = 'none'; }}
+								onMouseDown={(e) => { e.currentTarget.style.transform = 'scale(0.95)'; }}
+								onMouseUp={(e) => { e.currentTarget.style.transform = 'none'; }}
+								onTouchStart={(e) => { (e.currentTarget as HTMLButtonElement).style.transform = 'scale(0.95)'; }}
+								onTouchEnd={(e) => { (e.currentTarget as HTMLButtonElement).style.transform = 'none'; }}
+                            >
+                                <div className="p-2">
+                                    <div className="text-xl mb-1">📝</div>
+                                    <div className="text-xs font-medium">Add a note</div>
 								</div>
-							</button>
+                            </GlassButton>
 						</div>
 						<p className="text-xs text-white/70 mt-3">
 							These quick logs are saved instantly. View and edit them in your Body Journal.
 						</p>
-					</div>
-				</div>
+					</GlassCard>
 			</section>
 
 			{/* Toast */}

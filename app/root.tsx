@@ -40,17 +40,24 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <script
           dangerouslySetInnerHTML={{
             __html: `
-              if ('serviceWorker' in navigator) {
-                window.addEventListener('load', () => {
-                  navigator.serviceWorker.register('/sw.js', { scope: '/' })
-                    .then((registration) => {
-                      console.log('SW registered: ', registration);
-                    })
-                    .catch((registrationError) => {
-                      console.log('SW registration failed: ', registrationError);
-                    });
-                });
-              }
+              // Register the service worker only in production (simple heuristic):
+              // - Avoid localhost and 127.0.0.1
+              // - Avoid non-HTTPS
+              (function(){
+                var isLocalhost = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(window.location.hostname);
+                var isHttps = window.location.protocol === 'https:';
+                if (!isLocalhost && isHttps && 'serviceWorker' in navigator) {
+                  window.addEventListener('load', function() {
+                    navigator.serviceWorker.register('/sw.js', { scope: '/' })
+                      .then(function(registration){
+                        console.log('SW registered: ', registration);
+                      })
+                      .catch(function(err){
+                        console.log('SW registration failed: ', err);
+                      });
+                  });
+                }
+              })();
             `,
           }}
         />
@@ -65,6 +72,38 @@ export function Layout({ children }: { children: React.ReactNode }) {
             <feDisplacementMap in="SourceGraphic" in2="noise" scale={77} />
           </filter>
         </svg>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+            document.addEventListener('DOMContentLoaded', function() {
+              const glassElements = document.querySelectorAll('.glass-button');
+              glassElements.forEach(function(element){
+                element.addEventListener('mousemove', handleMouseMove);
+                element.addEventListener('mouseleave', handleMouseLeave);
+              });
+              function handleMouseMove(e) {
+                const rect = this.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const specular = this.querySelector('.glass-specular');
+                if (specular) {
+                  specular.style.background = 'radial-gradient(circle at ' + x + 'px ' + y + 'px, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 30%, rgba(255,255,255,0) 60%)';
+                }
+              }
+              function handleMouseLeave() {
+                const filter = document.querySelector('#glass-distortion feDisplacementMap');
+                if (filter) {
+                  filter.setAttribute('scale', '77');
+                }
+                const specular = this.querySelector('.glass-specular');
+                if (specular) {
+                  specular.style.background = 'none';
+                }
+              }
+            });
+          `,
+          }}
+        />
         <div className="container mx-auto px-4">
           <GlassNav />
           <div className="pt-4">

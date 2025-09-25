@@ -1,3 +1,4 @@
+import { GlassButton } from "../components/buttons";
 import React, { useMemo, useState } from "react";
 import type { Route } from "./+types/checkin";
 
@@ -74,7 +75,7 @@ export default function Checkin() {
 	}
 
 	return (
-		<main className="min-h-dvh p-4 sm:p-6 mx-auto max-w-xl sm:max-w-3xl overflow-hidden">
+		<main className="p-4 sm:p-6 mx-auto max-w-xl sm:max-w-3xl overflow-hidden">
 			<header className="mb-6">
 				<h1 className="text-2xl font-semibold">Monthly Check-in</h1>
 				<p className="text-sm text-gray-500">Step {step} of 3</p>
@@ -88,50 +89,66 @@ export default function Checkin() {
 					<div className="glass-content">
 					<h2 className="text-lg font-medium mb-3">How are you feeling today?</h2>
 					<div className="w-full max-w-md sm:max-w-none grid grid-cols-2 md:grid-cols-4 gap-3 mb-4 auto-rows-fr">
-						<button
-							onClick={() => toggleSymptom("tenderness")}
-							className={`rounded-lg border p-4 transition w-full h-full flex flex-col items-center justify-center ${
-								selectedSymptoms.tenderness
-									? "border-pink-500 bg-pink-50 dark:bg-pink-950/20"
-									: "border-gray-200 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-900"
-							}`}
-						>
-							<div className="text-3xl mb-2">💧</div>
-							<div className="text-sm font-medium">Tenderness</div>
-						</button>
-						<button
-							onClick={() => toggleSymptom("swelling")}
-							className={`rounded-lg border p-4 transition w-full h-full flex flex-col items-center justify-center ${
-								selectedSymptoms.swelling
-									? "border-pink-500 bg-pink-50 dark:bg-pink-950/20"
-									: "border-gray-200 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-900"
-							}`}
-						>
-							<div className="text-3xl mb-2">💠</div>
-							<div className="text-sm font-medium">Swelling</div>
-						</button>
-						<button
-							onClick={() => toggleSymptom("pain")}
-							className={`rounded-lg border p-4 transition w-full h-full flex flex-col items-center justify-center ${
-								selectedSymptoms.pain
-									? "border-pink-500 bg-pink-50 dark:bg-pink-950/20"
-									: "border-gray-200 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-900"
-							}`}
-						>
-							<div className="text-3xl mb-2">⚡</div>
-							<div className="text-sm font-medium">Pain</div>
-						</button>
-						<button
-							onClick={() => toggleSymptom("normal")}
-							className={`rounded-lg border p-4 transition w-full h-full flex flex-col items-center justify-center ${
-								selectedSymptoms.normal
-									? "border-pink-500 bg-pink-50 dark:bg-pink-950/20"
-									: "border-gray-200 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-900"
-							}`}
-						>
-							<div className="text-3xl mb-2">✅</div>
-							<div className="text-sm font-medium">Normal</div>
-						</button>
+                    <GlassButton type="button" onClick={() => toggleSymptom("tenderness")} className="w-full h-full" aria-pressed={selectedSymptoms.tenderness}
+                        overlayStyle={selectedSymptoms.tenderness ? { background: "rgba(255, 255, 255, 0.35)" } : undefined}
+                        specularStyle={selectedSymptoms.tenderness ? { boxShadow: "inset 1px 1px 1px rgba(255,255,255,0.9)" } : undefined}
+                        onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.transform = 'none'; }}
+                        onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.transform = 'none'; }}
+                        onMouseDown={(e) => { (e.currentTarget as HTMLButtonElement).style.transform = 'none'; }}
+                        onMouseUp={(e) => { (e.currentTarget as HTMLButtonElement).style.transform = 'none'; }}
+                        onTouchStart={(e) => { (e.currentTarget as HTMLButtonElement).style.transform = 'none'; }}
+                        onTouchEnd={(e) => { (e.currentTarget as HTMLButtonElement).style.transform = 'none'; }}
+                    >
+                        <div className="p-4 flex flex-col items-center justify-center">
+                            <div className="text-3xl mb-2">💧</div>
+                            <div className="text-sm font-medium">Tenderness</div>
+                        </div>
+                    </GlassButton>
+                    <GlassButton type="button" onClick={() => toggleSymptom("swelling")} className="w-full h-full" aria-pressed={selectedSymptoms.swelling}
+                        overlayStyle={selectedSymptoms.swelling ? { background: "rgba(255, 255, 255, 0.35)" } : undefined}
+                        specularStyle={selectedSymptoms.swelling ? { boxShadow: "inset 1px 1px 1px rgba(255,255,255,0.9)" } : undefined}
+                        onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.transform = 'none'; }}
+                        onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.transform = 'none'; }}
+                        onMouseDown={(e) => { (e.currentTarget as HTMLButtonElement).style.transform = 'none'; }}
+                        onMouseUp={(e) => { (e.currentTarget as HTMLButtonElement).style.transform = 'none'; }}
+                        onTouchStart={(e) => { (e.currentTarget as HTMLButtonElement).style.transform = 'none'; }}
+                        onTouchEnd={(e) => { (e.currentTarget as HTMLButtonElement).style.transform = 'none'; }}
+                    >
+                        <div className="p-4 flex flex-col items-center justify-center">
+                            <div className="text-3xl mb-2">💠</div>
+                            <div className="text-sm font-medium">Swelling</div>
+                        </div>
+                    </GlassButton>
+                    <GlassButton type="button" onClick={() => toggleSymptom("pain")} className="w-full h-full" aria-pressed={selectedSymptoms.pain}
+                        overlayStyle={selectedSymptoms.pain ? { background: "rgba(255, 255, 255, 0.35)" } : undefined}
+                        specularStyle={selectedSymptoms.pain ? { boxShadow: "inset 1px 1px 1px rgba(255,255,255,0.9)" } : undefined}
+                        onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.transform = 'none'; }}
+                        onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.transform = 'none'; }}
+                        onMouseDown={(e) => { (e.currentTarget as HTMLButtonElement).style.transform = 'none'; }}
+                        onMouseUp={(e) => { (e.currentTarget as HTMLButtonElement).style.transform = 'none'; }}
+                        onTouchStart={(e) => { (e.currentTarget as HTMLButtonElement).style.transform = 'none'; }}
+                        onTouchEnd={(e) => { (e.currentTarget as HTMLButtonElement).style.transform = 'none'; }}
+                    >
+                        <div className="p-4 flex flex-col items-center justify-center">
+                            <div className="text-3xl mb-2">⚡</div>
+                            <div className="text-sm font-medium">Pain</div>
+                        </div>
+                    </GlassButton>
+                    <GlassButton type="button" onClick={() => toggleSymptom("normal")} className="w-full h-full" aria-pressed={selectedSymptoms.normal}
+                        overlayStyle={selectedSymptoms.normal ? { background: "rgba(255, 255, 255, 0.35)" } : undefined}
+                        specularStyle={selectedSymptoms.normal ? { boxShadow: "inset 1px 1px 1px rgba(255,255,255,0.9)" } : undefined}
+                        onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.transform = 'none'; }}
+                        onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.transform = 'none'; }}
+                        onMouseDown={(e) => { (e.currentTarget as HTMLButtonElement).style.transform = 'none'; }}
+                        onMouseUp={(e) => { (e.currentTarget as HTMLButtonElement).style.transform = 'none'; }}
+                        onTouchStart={(e) => { (e.currentTarget as HTMLButtonElement).style.transform = 'none'; }}
+                        onTouchEnd={(e) => { (e.currentTarget as HTMLButtonElement).style.transform = 'none'; }}
+                    >
+                        <div className="p-4 flex flex-col items-center justify-center">
+                            <div className="text-3xl mb-2">✅</div>
+                            <div className="text-sm font-medium">Normal</div>
+                        </div>
+                    </GlassButton>
 					</div>
 					<label className="block mb-1 text-sm font-medium">Notes (optional)</label>
 					<textarea
@@ -139,7 +156,7 @@ export default function Checkin() {
 						onChange={(e) => setNotes(e.target.value)}
 						rows={4}
 						placeholder="Anything you want to remember for this check-in..."
-						className="w-full rounded-lg border border-gray-200 dark:border-gray-800 bg-transparent p-3 text-sm resize-none"
+						className="w-full rounded-lg bg-transparent p-3 text-sm resize-none"
 					/>
 					<div className="mt-4 flex justify-end">
 						<button onClick={nextFromStep1} disabled={!canContinueFromStep1} className="glass-button rounded-lg px-4 py-2 text-sm font-medium disabled:opacity-60 disabled:cursor-not-allowed">
@@ -180,9 +197,9 @@ export default function Checkin() {
 							<p className="text-sm mb-4">
 								Scan the <span className="font-medium">{quadrantLabels[quadrantIndex]}</span> now.
 							</p>
-							<button onClick={nextQuadrant} className="glass-button rounded-lg px-4 py-2 text-sm font-medium">
-								<div className="glass-content">{quadrantIndex < 3 ? "Next" : "Finish"}</div>
-							</button>
+                            <GlassButton onClick={nextQuadrant} className="rounded-lg px-4 py-2 text-sm font-medium">
+                                {quadrantIndex < 3 ? "Next" : "Finish"}
+                            </GlassButton>
 						</div>
 					</div>
 					</div>
@@ -211,12 +228,15 @@ export default function Checkin() {
 						</ul>
 					</div>
 					<div className="flex gap-3">
-						<a href="/" className="glass-button rounded-lg px-4 py-2 text-sm font-medium" onClick={finishCheckin}>
-							<div className="glass-content">Back to Today Hub</div>
-						</a>
-						<button onClick={finishCheckin} className="glass-button rounded-lg px-4 py-2 text-sm font-medium">
-							<div className="glass-content">Save results</div>
-						</button>
+                        <a href="/" className="glass-button rounded-lg px-4 py-2 text-sm font-medium" onClick={finishCheckin}>
+                            <div className="glass-filter" />
+                            <div className="glass-overlay" />
+                            <div className="glass-specular" />
+                            <div className="glass-content">Back to Today Hub</div>
+                        </a>
+                        <GlassButton onClick={finishCheckin} className="rounded-lg px-4 py-2 text-sm font-medium">
+                            Save results
+                        </GlassButton>
 					</div>
 					</div>
 				</section>

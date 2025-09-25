@@ -1,3 +1,4 @@
+import { GlassButton } from "./buttons";
 /// <reference types="vite-plugin-pwa/client" />
 
 import React, { useState, useEffect, useCallback } from 'react';
@@ -62,19 +63,13 @@ function ReloadPrompt() {
                 </div>
                 <div className="flex gap-2">
                     {needRefresh && (
-                        <button
-                            className="px-4 py-2 bg-pink-600 text-white font-semibold rounded-md hover:bg-pink-700 transition-colors"
-                            onClick={handleReload}
-                        >
-                            Reload
-                        </button>
+                        <GlassButton onClick={handleReload}>
+                            <span>Reload</span>
+                        </GlassButton>
                     )}
-                    <button
-                        className="px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
-                        onClick={close}
-                    >
-                        Close
-                    </button>
+                    <GlassButton onClick={close}>
+                        <span>Close</span>
+                    </GlassButton>
                 </div>
             </div>
         );
