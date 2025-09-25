@@ -9,17 +9,22 @@ export default defineConfig({
   plugins: [
     react(),
     tailwindcss(), 
-    reactRouter(), 
     tsconfigPaths(),
     VitePWA({
       // This ensures the service worker is updated automatically
       // so the user always has the latest version.
       registerType: 'autoUpdate',
       
+      // Enable PWA in development mode for testing
+      devOptions: {
+        enabled: true,
+        type: 'module'
+      },
+      
       // This tells the service worker to cache these assets
       // as soon as it's installed. Make sure these files exist
       // in your `public` folder.
-      includeAssets: ['favicon.svg', 'apple-touch-icon.png'],
+      includeAssets: ['favicon.svg'],
       
       // This is the core configuration for the install prompt.
       manifest: {
@@ -47,10 +52,26 @@ export default defineConfig({
             src: 'pwa-512x512.png', // Place in `public` folder
             sizes: '512x512',
             type: 'image/png',
-            purpose: 'any maskable'
+            // Corrected purpose to 'maskable'
+            purpose: 'maskable'
+          }
+        ],
+        // Added screenshots for a richer install experience
+        screenshots: [
+          {
+            src: '/screenshots/mobile.png', // Create this image and place in /public/screenshots/
+            sizes: '720x1280',
+            type: 'image/png'
+          },
+          {
+            src: '/screenshots/desktop.png', // Create this image and place in /public/screenshots/
+            sizes: '1280x720',
+            type: 'image/png',
+            form_factor: 'wide'
           }
         ]
       }
-    })
+    }),
+    reactRouter()
   ],
 });
