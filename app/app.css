@@ -66,16 +66,18 @@ select:focus, select:focus-visible {
   --highlight: rgba(255, 255, 255, 0.75);
   --text: #ffffff;
   position: fixed;
-  left: 50%;
-  bottom: 12px;
-  transform: translate(-50%, 0);
-  z-index: 1000;
-  width: auto;
-  display: inline-block;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transform: none;
+  z-index: initial;
+  width: 100%;
+  display: block;
   border-radius: 16px;
   overflow: hidden;
   background: transparent;
-  pointer-events: none; /* container non-interactive so underlying layout isn't affected */
+  /* allow interactions */
+  pointer-events: auto;
   transition: transform 0.25s ease, opacity 0.25s ease;
   opacity: 1;
 }
