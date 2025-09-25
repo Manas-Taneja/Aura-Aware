@@ -12,32 +12,39 @@ export default defineConfig({
     reactRouter(), 
     tsconfigPaths(),
     VitePWA({
+      // This ensures the service worker is updated automatically
+      // so the user always has the latest version.
       registerType: 'autoUpdate',
-      // Caches all the assets in the public folder
-      includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
+      
+      // This tells the service worker to cache these assets
+      // as soon as it's installed. Make sure these files exist
+      // in your `public` folder.
+      includeAssets: ['favicon.svg', 'apple-touch-icon.png'],
+      
+      // This is the core configuration for the install prompt.
       manifest: {
         name: 'Aura Aware',
         short_name: 'AuraAware',
         description: 'Your partner in proactive breast health.',
-        theme_color: '#fdf2f8', // This is a light pink color
-        background_color: '#ffffff',
+        theme_color: '#ffffff', // Often the main app background
+        background_color: '#fdf2f8', // Color for the splash screen
         display: 'standalone',
         scope: '/',
         start_url: '/',
         icons: [
           {
-            src: 'pwa-192x192.png',
+            src: 'pwa-192x192.png', // Place in `public` folder
             sizes: '192x192',
             type: 'image/png'
           },
           {
-            src: 'pwa-512x512.png',
+            src: 'pwa-512x512.png', // Place in `public` folder
             sizes: '512x512',
             type: 'image/png'
           },
           {
-            // This is for the "maskable" icon requirement
-            src: 'pwa-512x512.png', 
+            // A "maskable" icon is required for a good experience on Android.
+            src: 'pwa-512x512.png', // Place in `public` folder
             sizes: '512x512',
             type: 'image/png',
             purpose: 'any maskable'
