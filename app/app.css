@@ -60,6 +60,11 @@ select:focus, select:focus-visible {
   padding-bottom: max(env(safe-area-inset-bottom, 0px), 8px);
 }
 
+/* Reserve space for bottom navbar so content doesn't hide behind it */
+.app-content {
+  padding-bottom: calc(88px + env(safe-area-inset-bottom, 0px));
+}
+
 /* Glass Navigation Styles */
 .glass-nav {
   --bg-color: rgba(255, 255, 255, 0.25);

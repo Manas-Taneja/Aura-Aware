@@ -106,9 +106,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
           `,
           }}
         />
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 app-viewport">
           <GlassNav />
-          <div className="pt-4">
+          <div className="pt-4 app-content">
             {children}
           </div>
         </div>
