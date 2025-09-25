@@ -115,27 +115,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <ReloadPrompt />
         <ScrollRestoration />
         <Scripts />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-            (function(){
-              var lastY = window.scrollY;
-              var nav = document.querySelector('.glass-nav');
-              if (!nav) return;
-              function onScroll(){
-                var y = window.scrollY;
-                if (y > lastY + 4) {
-                  nav.classList.add('hidden');
-                } else if (y < lastY - 4) {
-                  nav.classList.remove('hidden');
-                }
-                lastY = y;
-              }
-              window.addEventListener('scroll', onScroll, { passive: true });
-            })();
-          `,
-          }}
-        />
       </body>
     </html>
   );
