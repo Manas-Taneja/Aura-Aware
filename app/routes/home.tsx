@@ -213,9 +213,6 @@ export default function Home() {
 								</div>
                             </GlassButton>
 						</div>
-						<p className="text-xs text-white/70 mt-3">
-							These quick logs are saved instantly. View and edit them in your Body Journal.
-						</p>
 					</GlassCard>
 			</section>
 

@@ -68,7 +68,7 @@ select:focus, select:focus-visible {
   position: fixed;
   left: 50%;
   bottom: 12px;
-  transform: translateX(-50%);
+  transform: translate(-50%, 0);
   z-index: 1000;
   width: auto;
   display: inline-block;
@@ -76,6 +76,13 @@ select:focus, select:focus-visible {
   overflow: hidden;
   background: transparent;
   pointer-events: none; /* container non-interactive so underlying layout isn't affected */
+  transition: transform 0.25s ease, opacity 0.25s ease;
+  opacity: 1;
+}
+
+.glass-nav.hidden {
+  transform: translate(-50%, 140%);
+  opacity: 0;
 }
 
 /* Generic Glass Card Container */

@@ -150,19 +150,26 @@ export default function Checkin() {
                         </div>
                     </GlassButton>
 					</div>
-					<label className="block mb-1 text-sm font-medium">Notes (optional)</label>
-					<textarea
-						value={notes}
-						onChange={(e) => setNotes(e.target.value)}
-						rows={4}
-						placeholder="Anything you want to remember for this check-in..."
-						className="w-full rounded-lg bg-transparent p-3 text-sm resize-none"
-					/>
-					<div className="mt-4 flex justify-end">
-						<button onClick={nextFromStep1} disabled={!canContinueFromStep1} className="glass-button rounded-lg px-4 py-2 text-sm font-medium disabled:opacity-60 disabled:cursor-not-allowed">
-							<div className="glass-content">Next</div>
-						</button>
-					</div>
+                    <label className="block mb-1 text-sm font-medium">Notes (optional)</label>
+                    <div className="glass-card">
+                        <div className="glass-filter" />
+                        <div className="glass-overlay" />
+                        <div className="glass-specular" />
+                        <div className="glass-content p-2">
+                            <textarea
+                                value={notes}
+                                onChange={(e) => setNotes(e.target.value)}
+                                rows={4}
+                                placeholder="Anything you want to remember for this check-in..."
+                                className="w-full bg-transparent p-3 text-sm resize-none"
+                            />
+                        </div>
+                    </div>
+                    <div className="flex justify-end">
+                        <GlassButton onClick={nextFromStep1} disabled={!canContinueFromStep1} className="rounded-lg mt-2 text-sm font-medium disabled:opacity-60 disabled:cursor-not-allowed">
+                            Next
+                        </GlassButton>
+                    </div>
 					</div>
 				</section>
 			)}
