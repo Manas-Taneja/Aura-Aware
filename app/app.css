@@ -84,8 +84,8 @@ select:focus, select:focus-visible {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: var(--nav-height);
-  padding-bottom: env(safe-area-inset-bottom, 0px);
+  height: auto;
+  padding: 8px 0 calc(8px + env(safe-area-inset-bottom, 0px));
   border-radius: 16px;
   overflow: hidden;
   background: transparent;
