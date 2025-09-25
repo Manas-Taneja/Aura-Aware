@@ -26,32 +26,13 @@ type CheckinEntry = {
 
 type DotColor = "green" | "yellow" | "red";
 
-function getMonthMatrix(year: number, monthZeroIndexed: number) {
-	const first = new Date(year, monthZeroIndexed, 1);
-	const startDay = first.getDay(); // 0=Sun
-	const daysInMonth = new Date(year, monthZeroIndexed + 1, 0).getDate();
-	const weeks: Array<Array<Date | null>> = [];
-	let currentWeek: Array<Date | null> = new Array(startDay).fill(null);
-	for (let d = 1; d <= daysInMonth; d++) {
-		currentWeek.push(new Date(year, monthZeroIndexed, d));
-		if (currentWeek.length === 7) {
-			weeks.push(currentWeek);
-			currentWeek = [];
-		}
-	}
-	if (currentWeek.length) {
-		while (currentWeek.length < 7) currentWeek.push(null);
-		weeks.push(currentWeek);
-	}
-	return weeks;
-}
-
 export default function Timeline() {
 	const now = new Date();
 	const [year, setYear] = useState(now.getFullYear());
 	const [month, setMonth] = useState(now.getMonth()); // 0-indexed
 	const [history, setHistory] = useState<CheckinEntry[]>([]);
 	const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+	const [daySize, setDaySize] = useState(44);
 
 	useEffect(() => {
 		try {
@@ -60,6 +41,19 @@ export default function Timeline() {
 		} catch {
 			setHistory([]);
 		}
+	}, []);
+
+	useEffect(() => {
+		const calc = () => {
+			const w = window.innerWidth;
+			if (w < 340) setDaySize(34);
+			else if (w < 380) setDaySize(36);
+			else if (w < 420) setDaySize(38);
+			else setDaySize(44);
+		};
+		calc();
+		window.addEventListener("resize", calc);
+		return () => window.removeEventListener("resize", calc);
 	}, []);
 
 	const entriesByDay = useMemo(() => {
@@ -73,10 +67,6 @@ export default function Timeline() {
 		return map;
 	}, [history]);
 
-	const weeks = useMemo(() => getMonthMatrix(year, month), [year, month]);
-
-// Month label and manual nav handled by DayPicker
-
 	return (
 		<main className="p-4 sm:p-6 mx-auto max-w-xl sm:max-w-4xl overflow-hidden">
 			<header className="mb-4">
@@ -88,32 +78,30 @@ export default function Timeline() {
 					<div className="glass-filter" />
 					<div className="glass-overlay" />
 					<div className="glass-specular" />
-					<div className="glass-content" style={{ padding: 2 }}>
-						<div style={{ display: "inline-block", padding: 2, margin: "0 auto" }}>
-							<DayPicker
-								classNames={(function(){ const d = getDefaultClassNames(); return { ...d, root: d.root + " rdp-root" }; })()}
-								style={{ ['--rdp-accent-color' as any]: 'yellowgreen' }}
-								month={new Date(year, month, 1)}
-								onMonthChange={(d) => { setYear(d.getFullYear()); setMonth(d.getMonth()); }}
-								showOutsideDays
-								weekStartsOn={0}
-								modifiers={(() => {
-									const clearDays = new Set<string>();
-									const yellowDays = new Set<string>();
-									const redDays = new Set<string>();
-									for (const [key, entries] of entriesByDay.entries()) {
-										const colors = entries.map(classifyDot);
-										if (colors.includes("red")) redDays.add(key);
-										else if (colors.includes("yellow")) yellowDays.add(key);
-										else clearDays.add(key);
-									}
-									const toDateArr = (set: Set<string>) => Array.from(set).map((k) => { const [y,m,day] = k.split("-").map(Number); return new Date(y,m,day); });
-									return { clear: toDateArr(clearDays), yellow: toDateArr(yellowDays), red: toDateArr(redDays) };
-								})()}
-								modifiersClassNames={{ clear: "calendar-dot-clear", yellow: "calendar-dot-yellow", red: "calendar-dot-red" }}
-								onDayClick={(d) => setSelectedDate(d)}
-							/>
-						</div>
+					<div className="glass-content" style={{ padding: 2, display: "flex", justifyContent: "center" }}>
+						<DayPicker
+							classNames={(function(){ const d = getDefaultClassNames(); return { ...d, root: d.root + " rdp-root" }; })()}
+							style={{ ['--rdp-accent-color' as any]: 'yellowgreen', ['--rdp-day_button-width' as any]: `${daySize}px`, ['--rdp-day_button-height' as any]: `${daySize}px`, ['--rdp-day_button-border-radius' as any]: '8px' }}
+							month={new Date(year, month, 1)}
+							onMonthChange={(d) => { setYear(d.getFullYear()); setMonth(d.getMonth()); }}
+							showOutsideDays
+							weekStartsOn={0}
+							modifiers={(() => {
+								const clearDays = new Set<string>();
+								const yellowDays = new Set<string>();
+								const redDays = new Set<string>();
+								for (const [key, entries] of entriesByDay.entries()) {
+									const colors = entries.map(classifyDot);
+									if (colors.includes("red")) redDays.add(key);
+									else if (colors.includes("yellow")) yellowDays.add(key);
+									else clearDays.add(key);
+								}
+								const toDateArr = (set: Set<string>) => Array.from(set).map((k) => { const [y,m,day] = k.split("-").map(Number); return new Date(y,m,day); });
+								return { clear: toDateArr(clearDays), yellow: toDateArr(yellowDays), red: toDateArr(redDays) };
+							})()}
+							modifiersClassNames={{ clear: "calendar-dot-clear", yellow: "calendar-dot-yellow", red: "calendar-dot-red" }}
+							onDayClick={(d) => setSelectedDate(d)}
+						/>
 					</div>
 				</div>
 			</section>
